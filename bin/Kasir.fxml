@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -18,53 +20,93 @@
             <Font name="Gill Sans MT" size="35.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="18.0" layoutY="100.0" prefHeight="153.0" prefWidth="804.0" spacing="50.0">
+      <VBox layoutX="18.0" layoutY="60.0" prefHeight="239.0" prefWidth="804.0">
          <children>
-            <ImageView fx:id="BurgerImage" fitHeight="131.0" fitWidth="134.0" onMouseClicked="#handleBurgerButtonClick" onMouseEntered="#OnMouseEnteredBurger" onMouseExited="#OnMouseExitedBurger" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets bottom="15.0" top="15.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@../asset/img/burger.png" />
-               </image>
-               <effect>
-                  <DropShadow blurType="ONE_PASS_BOX" height="6.73" offsetY="4.0" radius="1.1825" width="0.0" />
-               </effect>
-            </ImageView>
-            <ImageView fx:id="PizzaImage" fitHeight="130.0" fitWidth="128.0" onMouseClicked="#handlePizzaButtonClick" onMouseEntered="#OnMouseEnteredPizza" onMouseExited="#OnMouseExitedPizza" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets bottom="15.0" top="15.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@../asset/img/Pizza.png" />
-               </image>
-               <effect>
-                  <DropShadow blurType="ONE_PASS_BOX" height="1.69" offsetY="4.0" radius="0.0" width="0.0" />
-               </effect>
-            </ImageView>
-            <ImageView fx:id="RamenImage" fitHeight="123.0" fitWidth="140.0" onMouseClicked="#handleRamenButtonClick" onMouseEntered="#OnMouseEnteredRamen" onMouseExited="#OnMouseExitedRamen" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets bottom="15.0" top="15.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@../asset/img/Ramen.png" />
-               </image>
-               <effect>
-                  <DropShadow height="1.0" offsetY="4.0" radius="0.0" width="0.0" />
-               </effect>
-            </ImageView>
-            <ImageView fx:id="DrinkImage" fitHeight="120.0" fitWidth="147.0" onMouseClicked="#handleDrinkButtonClick" onMouseEntered="#OnMouseEnteredDrink" onMouseExited="#OnMouseExitedDrink" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets bottom="15.0" top="15.0" />
-               </HBox.margin>
-               <image>
-                  <Image url="@../asset/img/drink.png" />
-               </image>
-               <effect>
-                  <DropShadow height="1.0" offsetY="4.0" radius="0.0" width="0.0" />
-               </effect>
-            </ImageView>
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="804.0">
+               <children>
+                  <Label fx:id="BurgerLabel" alignment="CENTER" prefHeight="78.0" prefWidth="177.0" text="Burger">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="PizzaLabel" alignment="CENTER" prefHeight="78.0" prefWidth="175.0" text="Pizza">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="RamenLabel" alignment="CENTER" prefHeight="78.0" prefWidth="181.0" text="Ramen">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="DrinkLabel" alignment="CENTER" prefHeight="78.0" prefWidth="163.0" text="Drink">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="153.0" prefWidth="804.0" spacing="50.0">
+               <children>
+                  <ImageView fx:id="BurgerImage" fitHeight="131.0" fitWidth="134.0" onMouseClicked="#handleBurgerButtonClick" onMouseEntered="#OnMouseEnteredBurger" onMouseExited="#OnMouseExitedBurger" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets bottom="15.0" top="5.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../asset/img/burger.png" />
+                     </image>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="6.73" offsetY="4.0" radius="1.1825" width="0.0" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fx:id="PizzaImage" fitHeight="130.0" fitWidth="128.0" onMouseClicked="#handlePizzaButtonClick" onMouseEntered="#OnMouseEnteredPizza" onMouseExited="#OnMouseExitedPizza" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets bottom="15.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../asset/img/Pizza.png" />
+                     </image>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="1.69" offsetY="4.0" radius="0.0" width="0.0" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fx:id="RamenImage" fitHeight="123.0" fitWidth="140.0" onMouseClicked="#handleRamenButtonClick" onMouseEntered="#OnMouseEnteredRamen" onMouseExited="#OnMouseExitedRamen" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets bottom="15.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../asset/img/Ramen.png" />
+                     </image>
+                     <effect>
+                        <DropShadow height="1.0" offsetY="4.0" radius="0.0" width="0.0" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fx:id="DrinkImage" fitHeight="120.0" fitWidth="147.0" onMouseClicked="#handleDrinkButtonClick" onMouseEntered="#OnMouseEnteredDrink" onMouseExited="#OnMouseExitedDrink" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets bottom="15.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../asset/img/drink.png" />
+                     </image>
+                     <effect>
+                        <DropShadow height="1.0" offsetY="4.0" radius="0.0" width="0.0" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </children>
 </AnchorPane>

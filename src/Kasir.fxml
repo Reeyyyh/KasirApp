@@ -106,6 +106,30 @@
                   </ImageView>
                </children>
             </HBox>
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="804.0">
+               <children>
+                  <Label fx:id="BurgerLabel1" alignment="CENTER" prefHeight="78.0" prefWidth="177.0" text="20000">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="PizzaLabel1" alignment="CENTER" prefHeight="78.0" prefWidth="175.0" text="25000">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="RamenLabel1" alignment="CENTER" prefHeight="78.0" prefWidth="181.0" text="10000">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="DrinkLabel1" alignment="CENTER" prefHeight="78.0" prefWidth="163.0" text="5000">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>

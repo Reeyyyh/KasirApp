@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="849.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="KasirController">
+   <children>
+      <Label layoutX="354.0" layoutY="14.0" text="History Pesanan">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <VBox alignment="CENTER" layoutX="143.0" layoutY="507.0" prefHeight="106.0" prefWidth="562.0" spacing="20.0">
+         <children>
+            <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="43.0" prefWidth="146.0" text="Delete Data" textFill="RED">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <Button fx:id="kasirButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text="Kasir">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </VBox>
+      <TableView layoutX="25.0" layoutY="44.0" prefHeight="306.0" prefWidth="798.0">
+        <columns>
+          <TableColumn fx:id="colWaktu" prefWidth="199.20001602172852" text="Waktu" />
+          <TableColumn fx:id="colMenu" prefWidth="108.79997253417969" text="Menu" />
+            <TableColumn fx:id="colJumlah" prefWidth="85.5999755859375" text="Jumlah" />
+            <TableColumn fx:id="colHarga" prefWidth="145.60003662109375" text="Total harga" />
+            <TableColumn fx:id="colBayar" prefWidth="125.59991455078125" text="Pembayaran" />
+            <TableColumn fx:id="colKembalian" prefWidth="136.0" text="Kembalian" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

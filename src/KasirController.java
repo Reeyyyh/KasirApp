@@ -1,12 +1,15 @@
+import java.beans.EventHandler;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
 /**
  * @apiNote javafx version of JDK 21
@@ -18,35 +21,31 @@ public class KasirController implements Initializable {
 
     //Label
     @FXML
-    private Label BurgerLabel;
+    private Label BurgerLabel, PizzaLabel, RamenLabel,DrinkLabel;
+
+    //Price
+    @FXML
+    private Label BurgerPrice, PizzaPrice, RamenPrice, DrinkPrice;
+
+    //for call
+    @FXML
+    private Label MenuYangDipesan;
 
     @FXML
-    private Label PizzaLabel;
-
-    @FXML
-    private Label RamenLabel;
-
-    @FXML
-    private Label DrinkLabel;
+    private Label HargaMenu;
     
     
     //Image
     @FXML
-    private ImageView BurgerImage;
-
-    @FXML
-    private ImageView DrinkImage;
-
-    @FXML
-    private ImageView PizzaImage;
-
-    @FXML
-    private ImageView RamenImage;
-    
+    private ImageView BurgerImage, PizzaImage, RamenImage, DrinkImage;
 
     //Effect
     @FXML
     private DropShadow originalDropShadow;
+    
+    //Pane
+    @FXML
+    private Pane PaneShow;
 
 
 
@@ -89,6 +88,10 @@ public class KasirController implements Initializable {
     @FXML
     void handleBurgerButtonClick(MouseEvent event) {
         System.out.println("burger click");
+        PaneShow.setVisible(true);
+        MenuYangDipesan.setText("Menu yang di pesan : "+BurgerLabel.getText());
+        HargaMenu.setText("Harga : "+BurgerPrice.getText());
+        
     }
 
     //==============================================================================================
@@ -128,6 +131,9 @@ public class KasirController implements Initializable {
     @FXML
     void handlePizzaButtonClick(MouseEvent event) {
         System.out.println("pizza cliked");
+        PaneShow.setVisible(true);
+        MenuYangDipesan.setText("Menu yang di pesan : "+PizzaLabel.getText());
+        HargaMenu.setText("Harga : "+PizzaPrice.getText());
     }
 
     //==============================================================================================
@@ -150,13 +156,14 @@ public class KasirController implements Initializable {
     }
 
     /**
-     * Pizza Exit
+     * Ramen Exit
      * @param event mouse exit
      * @return color back to original
      */
     @FXML
     void OnMouseExitedRamen(MouseEvent event) {
         RamenImage.setEffect(originalDropShadow);
+        
     }
 
 
@@ -168,12 +175,15 @@ public class KasirController implements Initializable {
     @FXML
     void handleRamenButtonClick(MouseEvent event) {
         System.out.println("ramen cliked");
+        PaneShow.setVisible(true);
+        MenuYangDipesan.setText("Menu yang di pesan : "+RamenLabel.getText());
+        HargaMenu.setText("Harga : "+RamenPrice.getText());
     }
 
     //==============================================================================================
 
     /**
-     * Ramen entered
+     * Drink entered
      * @param event mouse entered
      * @return color become red
      */
@@ -190,7 +200,7 @@ public class KasirController implements Initializable {
     }
 
     /**
-     * Pizza Exit
+     * Drink Exit
      * @param event mouse exit
      * @return color back to original
      */
@@ -208,7 +218,35 @@ public class KasirController implements Initializable {
     @FXML
     void handleDrinkButtonClick(MouseEvent event) {
         System.out.println("drink cliked");
+        PaneShow.setVisible(true);
+        MenuYangDipesan.setText("Menu yang di pesan : "+DrinkLabel.getText());
+        HargaMenu.setText("Harga : "+DrinkPrice.getText());
     }
+
+    //==============================================================================================
+
+    /**
+     * Clear cliked
+     * @param event mouse clicked
+     * @return Pane invisible
+     */
+    @FXML
+    void handleClearButtonClick(ActionEvent event){
+        System.out.println("clear");
+        PaneShow.setVisible(false);
+    }
+
+    /**
+     * confirm cliked
+     * @param event mouse clicked
+     * @return result
+     */
+    @FXML
+    void handleConfirmButtonClick(ActionEvent event){
+        System.out.println("confirm");
+    }
+
+
 
     //==============================================================================================
 
@@ -217,6 +255,7 @@ public class KasirController implements Initializable {
         
         originalDropShadow = (DropShadow) BurgerImage.getEffect();
         
+        
         // BurgerImage.setOnMouseEntered(this::OnMouseEnteredBurger);
         // BurgerImage.setOnMouseExited(this::OnMouseExitedBurger);
 
@@ -224,4 +263,3 @@ public class KasirController implements Initializable {
 
 
 }
-

@@ -3,6 +3,7 @@ import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,9 +13,24 @@ import javafx.scene.input.MouseEvent;
  */
 public class KasirController implements Initializable {
 
-    //=============================================================================================
     // inisial variabel from fxml file
+    //=============================================================================================
 
+    //Label
+    @FXML
+    private Label BurgerLabel;
+
+    @FXML
+    private Label PizzaLabel;
+
+    @FXML
+    private Label RamenLabel;
+
+    @FXML
+    private Label DrinkLabel;
+    
+    
+    //Image
     @FXML
     private ImageView BurgerImage;
 
@@ -26,9 +42,15 @@ public class KasirController implements Initializable {
 
     @FXML
     private ImageView RamenImage;
+    
 
+    //Effect
     @FXML
     private DropShadow originalDropShadow;
+
+
+
+
 
     //==============================================================================================
 

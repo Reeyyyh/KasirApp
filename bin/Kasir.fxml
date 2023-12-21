@@ -20,9 +20,9 @@
             <Font name="Gill Sans MT" size="35.0" />
          </font>
       </Label>
-      <VBox layoutX="18.0" layoutY="60.0" prefHeight="239.0" prefWidth="804.0">
+      <VBox layoutX="18.0" layoutY="60.0" prefHeight="270.0" prefWidth="804.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="804.0">
+            <HBox alignment="CENTER" prefHeight="54.0" prefWidth="804.0">
                <children>
                   <Label fx:id="BurgerLabel" alignment="CENTER" prefHeight="78.0" prefWidth="177.0" text="Burger">
                      <font>
@@ -46,7 +46,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="153.0" prefWidth="804.0" spacing="50.0">
+            <HBox alignment="CENTER" prefHeight="144.0" prefWidth="804.0" spacing="50.0">
                <children>
                   <ImageView fx:id="BurgerImage" fitHeight="131.0" fitWidth="134.0" onMouseClicked="#handleBurgerButtonClick" onMouseEntered="#OnMouseEnteredBurger" onMouseExited="#OnMouseExitedBurger" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
@@ -104,6 +104,30 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="66.0" prefWidth="804.0">
+               <children>
+                  <Label fx:id="BurgerPrice" alignment="CENTER" prefHeight="78.0" prefWidth="177.0" text="20000">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="PizzaPrice" alignment="CENTER" prefHeight="78.0" prefWidth="175.0" text="25000">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="RamenPrice" alignment="CENTER" prefHeight="78.0" prefWidth="181.0" text="10000">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="DrinkPrice" alignment="CENTER" prefHeight="78.0" prefWidth="163.0" text="5000">
+                     <font>
+                        <Font name="Impact" size="20.0" />
+                     </font>
+                  </Label>
                </children>
             </HBox>
          </children>

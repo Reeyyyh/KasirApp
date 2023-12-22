@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -52,6 +54,8 @@ public class KasirController implements Initializable {
     private Button HistoryPembelianButton;
 
     //Spinner
+    @FXML
+    private Spinner<Integer> SpinnerJumlahPesanan;
 
     //==============================================================================================
 
@@ -59,7 +63,7 @@ public class KasirController implements Initializable {
 
     //Non FXML
     //==============================================================================================
-
+    private DropShadow redDropShadow = new DropShadow();
 
 
     //==============================================================================================
@@ -72,13 +76,6 @@ public class KasirController implements Initializable {
      */
     @FXML
     void OnMouseEnteredBurger(MouseEvent event) {
-        DropShadow redDropShadow = new DropShadow();
-        redDropShadow.setColor(javafx.scene.paint.Color.RED);
-        redDropShadow.setBlurType(originalDropShadow.getBlurType());
-        redDropShadow.setHeight(originalDropShadow.getHeight());
-        redDropShadow.setOffsetY(originalDropShadow.getOffsetY());
-        redDropShadow.setRadius(originalDropShadow.getRadius());
-        redDropShadow.setWidth(originalDropShadow.getWidth());
         BurgerImage.setEffect(redDropShadow);
     }
 
@@ -105,7 +102,8 @@ public class KasirController implements Initializable {
             MenuYangDipesan.setText("Menu yang di pesan : "+BurgerLabel.getText());
             HargaMenu.setText("Harga : Rp "+BurgerPrice.getText());
             disableOtherItems(BurgerImage);
-        
+
+            AutoCount();
         
     }
 
@@ -119,13 +117,6 @@ public class KasirController implements Initializable {
      */
     @FXML
     void OnMouseEnteredPizza(MouseEvent event) {
-        DropShadow redDropShadow = new DropShadow();
-        redDropShadow.setColor(javafx.scene.paint.Color.RED);
-        redDropShadow.setBlurType(originalDropShadow.getBlurType());
-        redDropShadow.setHeight(originalDropShadow.getHeight());
-        redDropShadow.setOffsetY(originalDropShadow.getOffsetY());
-        redDropShadow.setRadius(originalDropShadow.getRadius());
-        redDropShadow.setWidth(originalDropShadow.getWidth());
         PizzaImage.setEffect(redDropShadow);
     }
 
@@ -152,8 +143,8 @@ public class KasirController implements Initializable {
             MenuYangDipesan.setText("Menu yang di pesan : "+PizzaLabel.getText());
             HargaMenu.setText("Harga : Rp "+PizzaPrice.getText());
             disableOtherItems(PizzaImage);
-        
-        
+
+            AutoCount();
     }
 
     //==============================================================================================
@@ -166,13 +157,6 @@ public class KasirController implements Initializable {
      */
     @FXML
     void OnMouseEnteredRamen(MouseEvent event) {
-        DropShadow redDropShadow = new DropShadow();
-        redDropShadow.setColor(javafx.scene.paint.Color.RED);
-        redDropShadow.setBlurType(originalDropShadow.getBlurType());
-        redDropShadow.setHeight(originalDropShadow.getHeight());
-        redDropShadow.setOffsetY(originalDropShadow.getOffsetY());
-        redDropShadow.setRadius(originalDropShadow.getRadius());
-        redDropShadow.setWidth(originalDropShadow.getWidth());
         RamenImage.setEffect(redDropShadow);
     }
 
@@ -184,7 +168,6 @@ public class KasirController implements Initializable {
     @FXML
     void OnMouseExitedRamen(MouseEvent event) {
         RamenImage.setEffect(originalDropShadow);
-        
     }
 
 
@@ -202,7 +185,7 @@ public class KasirController implements Initializable {
             HargaMenu.setText("Harga : Rp "+RamenPrice.getText());
             disableOtherItems(RamenImage);
 
-        
+            AutoCount();
         
     }
 
@@ -216,13 +199,6 @@ public class KasirController implements Initializable {
      */
     @FXML
     void OnMouseEnteredDrink(MouseEvent event) {
-        DropShadow redDropShadow = new DropShadow();
-        redDropShadow.setColor(javafx.scene.paint.Color.RED);
-        redDropShadow.setBlurType(originalDropShadow.getBlurType());
-        redDropShadow.setHeight(originalDropShadow.getHeight());
-        redDropShadow.setOffsetY(originalDropShadow.getOffsetY());
-        redDropShadow.setRadius(originalDropShadow.getRadius());
-        redDropShadow.setWidth(originalDropShadow.getWidth());
         DrinkImage.setEffect(redDropShadow);
     }
 
@@ -250,7 +226,8 @@ public class KasirController implements Initializable {
             MenuYangDipesan.setText("Menu yang di pesan : "+DrinkLabel.getText());
             HargaMenu.setText("Harga : Rp "+DrinkPrice.getText());
             disableOtherItems(DrinkImage);
-        
+
+            AutoCount();
         
     }
 
@@ -316,7 +293,11 @@ public class KasirController implements Initializable {
     }
 
     //AutoCount
-
+    private void AutoCount(){
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);
+        valueFactory.setValue(1);
+        SpinnerJumlahPesanan.setValueFactory(valueFactory);
+    }
 
 
 
@@ -327,7 +308,13 @@ public class KasirController implements Initializable {
         
         originalDropShadow = (DropShadow) BurgerImage.getEffect();
 
-    }
+        redDropShadow.setColor(javafx.scene.paint.Color.RED);
+        redDropShadow.setBlurType(originalDropShadow.getBlurType());
+        redDropShadow.setHeight(originalDropShadow.getHeight());
+        redDropShadow.setOffsetY(originalDropShadow.getOffsetY());
+        redDropShadow.setRadius(originalDropShadow.getRadius());
+        redDropShadow.setWidth(originalDropShadow.getWidth());
 
+    }
 
 }

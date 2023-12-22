@@ -46,7 +46,12 @@ public class KasirController implements Initializable {
     @FXML
     private Pane PaneShow;
 
+    //==============================================================================================
 
+
+
+    //Non FXML
+    //==============================================================================================
 
 
 
@@ -87,9 +92,12 @@ public class KasirController implements Initializable {
     @FXML
     void handleBurgerButtonClick(MouseEvent event) {
         System.out.println("burger click");
-        PaneShow.setVisible(true);
-        MenuYangDipesan.setText("Menu yang di pesan : "+BurgerLabel.getText());
-        HargaMenu.setText("Harga : "+BurgerPrice.getText());
+        
+            PaneShow.setVisible(true);
+            MenuYangDipesan.setText("Menu yang di pesan : "+BurgerLabel.getText());
+            HargaMenu.setText("Harga : "+BurgerPrice.getText());
+            disableOtherItems(BurgerImage);
+        
         
     }
 
@@ -130,9 +138,13 @@ public class KasirController implements Initializable {
     @FXML
     void handlePizzaButtonClick(MouseEvent event) {
         System.out.println("pizza cliked");
-        PaneShow.setVisible(true);
-        MenuYangDipesan.setText("Menu yang di pesan : "+PizzaLabel.getText());
-        HargaMenu.setText("Harga : "+PizzaPrice.getText());
+        
+            PaneShow.setVisible(true);
+            MenuYangDipesan.setText("Menu yang di pesan : "+PizzaLabel.getText());
+            HargaMenu.setText("Harga : "+PizzaPrice.getText());
+            disableOtherItems(PizzaImage);
+        
+        
     }
 
     //==============================================================================================
@@ -174,9 +186,14 @@ public class KasirController implements Initializable {
     @FXML
     void handleRamenButtonClick(MouseEvent event) {
         System.out.println("ramen cliked");
-        PaneShow.setVisible(true);
-        MenuYangDipesan.setText("Menu yang di pesan : "+RamenLabel.getText());
-        HargaMenu.setText("Harga : "+RamenPrice.getText());
+        
+            PaneShow.setVisible(true);
+            MenuYangDipesan.setText("Menu yang di pesan : "+RamenLabel.getText());
+            HargaMenu.setText("Harga : "+RamenPrice.getText());
+            disableOtherItems(RamenImage);
+
+        
+        
     }
 
     //==============================================================================================
@@ -217,12 +234,17 @@ public class KasirController implements Initializable {
     @FXML
     void handleDrinkButtonClick(MouseEvent event) {
         System.out.println("drink cliked");
-        PaneShow.setVisible(true);
-        MenuYangDipesan.setText("Menu yang di pesan : "+DrinkLabel.getText());
-        HargaMenu.setText("Harga : "+DrinkPrice.getText());
+        
+            PaneShow.setVisible(true);
+            MenuYangDipesan.setText("Menu yang di pesan : "+DrinkLabel.getText());
+            HargaMenu.setText("Harga : "+DrinkPrice.getText());
+            disableOtherItems(DrinkImage);
+        
+        
     }
 
     //==============================================================================================
+    // pane item
 
     /**
      * Clear cliked
@@ -233,6 +255,10 @@ public class KasirController implements Initializable {
     void handleClearButtonClick(ActionEvent event){
         System.out.println("clear");
         PaneShow.setVisible(false);
+        BurgerImage.setDisable(false);
+        PizzaImage.setDisable(false);
+        RamenImage.setDisable(false);
+        DrinkImage.setDisable(false);
     }
 
     /**
@@ -243,6 +269,29 @@ public class KasirController implements Initializable {
     @FXML
     void handleConfirmButtonClick(ActionEvent event){
         System.out.println("confirm");
+    }
+
+    //==============================================================================================
+    //non fxml item
+
+    private void disableOtherItems(ImageView selectedItem) {
+        // Menonaktifkan item-item lainnya
+        if (selectedItem != BurgerImage) {
+            BurgerImage.setDisable(true);
+            
+        }
+        if (selectedItem != PizzaImage) {
+            PizzaImage.setDisable(true);
+            
+        }
+        if (selectedItem != RamenImage) {
+            RamenImage.setDisable(true);
+            
+        }
+        if (selectedItem != DrinkImage) {
+            DrinkImage.setDisable(true);
+            
+        }
     }
 
 

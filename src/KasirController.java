@@ -4,6 +4,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
@@ -46,6 +47,12 @@ public class KasirController implements Initializable {
     @FXML
     private Pane PaneShow;
 
+    //Button
+    @FXML
+    private Button HistoryPembelianButton;
+
+    //Spinner
+
     //==============================================================================================
 
 
@@ -56,6 +63,7 @@ public class KasirController implements Initializable {
 
 
     //==============================================================================================
+    //Burger ImageView click
 
     /**
      * Burger entered
@@ -95,13 +103,14 @@ public class KasirController implements Initializable {
         
             PaneShow.setVisible(true);
             MenuYangDipesan.setText("Menu yang di pesan : "+BurgerLabel.getText());
-            HargaMenu.setText("Harga : "+BurgerPrice.getText());
+            HargaMenu.setText("Harga : Rp "+BurgerPrice.getText());
             disableOtherItems(BurgerImage);
         
         
     }
 
     //==============================================================================================
+    //Pizza ImageView click
 
     /**
      * Pizza entered
@@ -141,13 +150,14 @@ public class KasirController implements Initializable {
         
             PaneShow.setVisible(true);
             MenuYangDipesan.setText("Menu yang di pesan : "+PizzaLabel.getText());
-            HargaMenu.setText("Harga : "+PizzaPrice.getText());
+            HargaMenu.setText("Harga : Rp "+PizzaPrice.getText());
             disableOtherItems(PizzaImage);
         
         
     }
 
     //==============================================================================================
+    //Ramen ImageView click
 
     /**
      * Ramen entered
@@ -189,7 +199,7 @@ public class KasirController implements Initializable {
         
             PaneShow.setVisible(true);
             MenuYangDipesan.setText("Menu yang di pesan : "+RamenLabel.getText());
-            HargaMenu.setText("Harga : "+RamenPrice.getText());
+            HargaMenu.setText("Harga : Rp "+RamenPrice.getText());
             disableOtherItems(RamenImage);
 
         
@@ -197,6 +207,7 @@ public class KasirController implements Initializable {
     }
 
     //==============================================================================================
+    //Drink ImageView click
 
     /**
      * Drink entered
@@ -237,7 +248,7 @@ public class KasirController implements Initializable {
         
             PaneShow.setVisible(true);
             MenuYangDipesan.setText("Menu yang di pesan : "+DrinkLabel.getText());
-            HargaMenu.setText("Harga : "+DrinkPrice.getText());
+            HargaMenu.setText("Harga : Rp "+DrinkPrice.getText());
             disableOtherItems(DrinkImage);
         
         
@@ -249,7 +260,7 @@ public class KasirController implements Initializable {
     /**
      * Clear cliked
      * @param event mouse clicked
-     * @return Pane invisible
+     * @return Pane invisible, and other item can be selected
      */
     @FXML
     void handleClearButtonClick(ActionEvent event){
@@ -259,6 +270,7 @@ public class KasirController implements Initializable {
         PizzaImage.setDisable(false);
         RamenImage.setDisable(false);
         DrinkImage.setDisable(false);
+        HistoryPembelianButton.setDisable(false);
     }
 
     /**
@@ -272,27 +284,39 @@ public class KasirController implements Initializable {
     }
 
     //==============================================================================================
+    //Hitory Pembelian Button action
+    @FXML
+    void handleHistoryPembelianButton(ActionEvent event){
+        System.out.println("history pembelian button clik");
+    }
+
+
+    //==============================================================================================
     //non fxml item
 
+    /**
+     * to disable not selected item
+     * @param selectedItem a selected ImageView
+     */
     private void disableOtherItems(ImageView selectedItem) {
         // Menonaktifkan item-item lainnya
         if (selectedItem != BurgerImage) {
             BurgerImage.setDisable(true);
-            
         }
         if (selectedItem != PizzaImage) {
             PizzaImage.setDisable(true);
-            
         }
         if (selectedItem != RamenImage) {
             RamenImage.setDisable(true);
-            
         }
         if (selectedItem != DrinkImage) {
             DrinkImage.setDisable(true);
-            
         }
+        HistoryPembelianButton.setDisable(true);
     }
+
+    //AutoCount
+
 
 
 
@@ -302,10 +326,6 @@ public class KasirController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         
         originalDropShadow = (DropShadow) BurgerImage.getEffect();
-        
-        
-        // BurgerImage.setOnMouseEntered(this::OnMouseEnteredBurger);
-        // BurgerImage.setOnMouseExited(this::OnMouseExitedBurger);
 
     }
 

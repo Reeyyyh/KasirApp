@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -35,7 +36,10 @@ public class KasirController implements Initializable {
 
     @FXML
     private Label HargaMenu;
-    
+
+    @FXML
+    private Label LabelTotalHarga;
+
     
     //Image
     @FXML
@@ -56,6 +60,10 @@ public class KasirController implements Initializable {
     //Spinner
     @FXML
     private Spinner<Integer> SpinnerJumlahPesanan;
+
+    //Textfield
+    @FXML
+    private TextField TextFieldPembayaran;
 
     //==============================================================================================
 
@@ -103,7 +111,7 @@ public class KasirController implements Initializable {
             HargaMenu.setText("Harga : Rp "+BurgerPrice.getText());
             disableOtherItems(BurgerImage);
 
-            AutoCount();
+            AutoCount(BurgerPrice);
         
     }
 
@@ -144,7 +152,7 @@ public class KasirController implements Initializable {
             HargaMenu.setText("Harga : Rp "+PizzaPrice.getText());
             disableOtherItems(PizzaImage);
 
-            AutoCount();
+            AutoCount(PizzaPrice);
     }
 
     //==============================================================================================
@@ -185,7 +193,7 @@ public class KasirController implements Initializable {
             HargaMenu.setText("Harga : Rp "+RamenPrice.getText());
             disableOtherItems(RamenImage);
 
-            AutoCount();
+            AutoCount(RamenPrice);
         
     }
 
@@ -227,7 +235,7 @@ public class KasirController implements Initializable {
             HargaMenu.setText("Harga : Rp "+DrinkPrice.getText());
             disableOtherItems(DrinkImage);
 
-            AutoCount();
+            AutoCount(DrinkPrice);
         
     }
 
@@ -248,6 +256,8 @@ public class KasirController implements Initializable {
         RamenImage.setDisable(false);
         DrinkImage.setDisable(false);
         HistoryPembelianButton.setDisable(false);
+        TextFieldPembayaran.clear();
+
     }
 
     /**
@@ -266,7 +276,6 @@ public class KasirController implements Initializable {
     void handleHistoryPembelianButton(ActionEvent event){
         System.out.println("history pembelian button clik");
     }
-
 
     //==============================================================================================
     //non fxml item
@@ -293,13 +302,17 @@ public class KasirController implements Initializable {
     }
 
     //AutoCount
-    private void AutoCount(){
+    private void AutoCount(Label Price){
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);
         valueFactory.setValue(1);
         SpinnerJumlahPesanan.setValueFactory(valueFactory);
+        
+        String ValueHarga = Price.getText();
+        System.out.println(ValueHarga);
+
+        LabelTotalHarga.setText("Total Harga : "+ValueHarga);
+        
     }
-
-
 
     //==============================================================================================
 

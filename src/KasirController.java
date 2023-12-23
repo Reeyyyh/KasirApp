@@ -109,6 +109,7 @@ public class KasirController implements Initializable {
             PaneShow.setVisible(true);
             MenuYangDipesan.setText("Menu yang di pesan : "+BurgerLabel.getText());
             HargaMenu.setText("Harga : Rp "+BurgerPrice.getText());
+            
             disableOtherItems(BurgerImage);
 
             AutoCount(BurgerPrice);
@@ -150,6 +151,7 @@ public class KasirController implements Initializable {
             PaneShow.setVisible(true);
             MenuYangDipesan.setText("Menu yang di pesan : "+PizzaLabel.getText());
             HargaMenu.setText("Harga : Rp "+PizzaPrice.getText());
+            
             disableOtherItems(PizzaImage);
 
             AutoCount(PizzaPrice);
@@ -191,6 +193,7 @@ public class KasirController implements Initializable {
             PaneShow.setVisible(true);
             MenuYangDipesan.setText("Menu yang di pesan : "+RamenLabel.getText());
             HargaMenu.setText("Harga : Rp "+RamenPrice.getText());
+           
             disableOtherItems(RamenImage);
 
             AutoCount(RamenPrice);
@@ -233,6 +236,7 @@ public class KasirController implements Initializable {
             PaneShow.setVisible(true);
             MenuYangDipesan.setText("Menu yang di pesan : "+DrinkLabel.getText());
             HargaMenu.setText("Harga : Rp "+DrinkPrice.getText());
+    
             disableOtherItems(DrinkImage);
 
             AutoCount(DrinkPrice);
@@ -302,17 +306,20 @@ public class KasirController implements Initializable {
     }
 
     //AutoCount
-    private void AutoCount(Label Price){
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);
-        valueFactory.setValue(1);
-        SpinnerJumlahPesanan.setValueFactory(valueFactory);
-        
-        String ValueHarga = Price.getText();
-        System.out.println(ValueHarga);
+    private void AutoCount(Label Price) {
 
-        LabelTotalHarga.setText("Total Harga : "+ValueHarga);
-        
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10);
+        valueFactory.setValue(0);
+        SpinnerJumlahPesanan.setValueFactory(valueFactory);
+    
+        SpinnerJumlahPesanan.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int hargaPerItem = Integer.parseInt(Price.getText());
+            int jumlahPesanan = newValue;
+            int totalHarga = hargaPerItem * jumlahPesanan;
+            LabelTotalHarga.setText("Total Harga : Rp " + totalHarga);
+        });
     }
+    
 
     //==============================================================================================
 

@@ -109,6 +109,7 @@ public class KasirController implements Initializable {
             PaneShow.setVisible(true);
             MenuYangDipesan.setText("Menu yang di pesan : "+BurgerLabel.getText());
             HargaMenu.setText("Harga : Rp "+BurgerPrice.getText());
+            
             disableOtherItems(BurgerImage);
 
             AutoCount(BurgerPrice);
@@ -150,6 +151,7 @@ public class KasirController implements Initializable {
             PaneShow.setVisible(true);
             MenuYangDipesan.setText("Menu yang di pesan : "+PizzaLabel.getText());
             HargaMenu.setText("Harga : Rp "+PizzaPrice.getText());
+            
             disableOtherItems(PizzaImage);
 
             AutoCount(PizzaPrice);
@@ -191,6 +193,7 @@ public class KasirController implements Initializable {
             PaneShow.setVisible(true);
             MenuYangDipesan.setText("Menu yang di pesan : "+RamenLabel.getText());
             HargaMenu.setText("Harga : Rp "+RamenPrice.getText());
+           
             disableOtherItems(RamenImage);
 
             AutoCount(RamenPrice);
@@ -233,6 +236,7 @@ public class KasirController implements Initializable {
             PaneShow.setVisible(true);
             MenuYangDipesan.setText("Menu yang di pesan : "+DrinkLabel.getText());
             HargaMenu.setText("Harga : Rp "+DrinkPrice.getText());
+    
             disableOtherItems(DrinkImage);
 
             AutoCount(DrinkPrice);
@@ -257,7 +261,6 @@ public class KasirController implements Initializable {
         DrinkImage.setDisable(false);
         HistoryPembelianButton.setDisable(false);
         TextFieldPembayaran.clear();
-        LabelTotalHarga.setText("Total Harga : Rp 0");
 
     }
 

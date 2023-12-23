@@ -188,7 +188,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="TextFieldPembayaran" layoutX="164.0" layoutY="169.0" prefHeight="30.0" prefWidth="175.0" />
+            <TextField fx:id="TextFieldPembayaran" layoutX="164.0" layoutY="169.0" prefHeight="30.0" prefWidth="175.0" promptText="Masukkan Pembayaran" />
             <Label fx:id="LabelKembalian" layoutX="14.0" layoutY="220.0" prefHeight="40.0" prefWidth="326.0" text="Kembalian : ">
                <font>
                   <Font name="System Bold" size="20.0" />

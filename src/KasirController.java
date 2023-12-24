@@ -1,5 +1,8 @@
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -39,6 +43,9 @@ public class KasirController implements Initializable {
 
     @FXML
     private Label LabelTotalHarga;
+
+    @FXML
+    private Label LabelKembalian;
 
     
     //Image
@@ -281,6 +288,8 @@ public class KasirController implements Initializable {
         System.out.println("history pembelian button clik");
     }
 
+
+
     //==============================================================================================
     //non fxml item
 
@@ -308,6 +317,11 @@ public class KasirController implements Initializable {
     //AutoCount
     private void AutoCount(Label Price) {
 
+        AtomicInteger TotalHarga = new AtomicInteger(0);
+
+        TextFieldPembayaran.clear();
+        TextFieldPembayaran.setText("0");
+
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10);
         valueFactory.setValue(0);
         SpinnerJumlahPesanan.setValueFactory(valueFactory);
@@ -316,12 +330,34 @@ public class KasirController implements Initializable {
             int hargaPerItem = Integer.parseInt(Price.getText());
             int jumlahPesanan = newValue;
             int totalHarga = hargaPerItem * jumlahPesanan;
+            TotalHarga.set(totalHarga);
             LabelTotalHarga.setText("Total Harga : Rp " + totalHarga);
+            Pembayaran(TotalHarga.get());
         });
+        
     }
     
 
+    //Pembayaran
+    private void Pembayaran(int TotalHarga){
+        Pattern pattern = Pattern.compile("^[0-9]+$");
+        String inputBayar = TextFieldPembayaran.getText();
+
+        Matcher matcher = pattern.matcher(inputBayar);
+        if (matcher.matches()) {
+            // Input hanya mengandung angka, Anda dapat melanjutkan dengan proses pembayaran
+            // ...
+            System.out.println("Input sesuai dengan pola angka");
+        } else {
+            // Input tidak hanya mengandung angka, Anda dapat menangani kasus ini, misalnya, menampilkan pesan kesalahan
+            // ...
+            System.out.println("Input mengandung karakter selain angka");
+        }
+    }
+
+
     //==============================================================================================
+
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -335,6 +371,23 @@ public class KasirController implements Initializable {
         redDropShadow.setRadius(originalDropShadow.getRadius());
         redDropShadow.setWidth(originalDropShadow.getWidth());
 
+        initializeTextField();
+
+    }
+
+    private void initializeTextField() {
+        TextFormatter<Object> formatter = new TextFormatter<>(change -> {
+            if (change.isContentChange()) {
+                String newText = change.getControlNewText();
+                if (newText.matches("\\d*")) {
+                    return change; // Accept the change
+                }
+                return null; // Reject the change
+            }
+            return change;
+        });
+
+        TextFieldPembayaran.setTextFormatter(formatter);
     }
 
 }

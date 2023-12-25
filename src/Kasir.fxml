@@ -139,20 +139,20 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <AnchorPane fx:id="PaneShow" layoutX="87.0" layoutY="283.0" prefHeight="359.0" prefWidth="664.0">
+      <AnchorPane fx:id="PaneShow" layoutX="87.0" layoutY="283.0" prefHeight="163.0" prefWidth="664.0" visible="false">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cccccc" height="359.0" stroke="BLACK" strokeType="INSIDE" width="664.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cccccc" height="184.0" stroke="BLACK" strokeType="INSIDE" width="664.0" />
             <Label fx:id="MenuYangDipesan" layoutX="14.0" layoutY="14.0" text="Menu yang di pesan : ">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="HargaMenu" layoutX="449.0" layoutY="14.0" prefHeight="30.0" prefWidth="206.0" text="Harga : ">
+            <Label fx:id="HargaMenu" layoutX="423.0" layoutY="14.0" prefHeight="30.0" prefWidth="206.0" text="Harga : ">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" layoutX="402.0" layoutY="294.0" prefHeight="50.0" prefWidth="248.0" spacing="10.0">
+            <HBox alignment="CENTER" layoutX="416.0" layoutY="128.0" prefHeight="50.0" prefWidth="248.0" spacing="10.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#handleClearButtonClick" prefHeight="73.0" prefWidth="112.0" text="CANCEL" textFill="RED">
                      <font>
@@ -183,17 +183,36 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="14.0" layoutY="165.0" prefHeight="40.0" prefWidth="150.0" text="Pembayaran : ">
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="PaneConfirm" layoutX="87.0" layoutY="477.0" prefHeight="50.0" prefWidth="664.0" visible="false">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cccccc" height="120.0" layoutX="1.0" stroke="BLACK" strokeType="INSIDE" width="664.0" />
+            <Label layoutX="8.0" layoutY="12.0" prefHeight="40.0" prefWidth="137.0" text="Pembayaran : ">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="TextFieldPembayaran" layoutX="164.0" layoutY="169.0" prefHeight="30.0" prefWidth="175.0" promptText="Masukkan Pembayaran" text="0" />
-            <Label fx:id="LabelKembalian" layoutX="14.0" layoutY="220.0" prefHeight="40.0" prefWidth="326.0" text="Kembalian : ">
+            <Label fx:id="LabelKembalian" layoutX="8.0" layoutY="60.0" prefHeight="40.0" prefWidth="340.0" text="Kembalian : ">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
+            <TextField fx:id="TextFieldPembayaran" layoutX="146.0" layoutY="17.0" prefHeight="30.0" prefWidth="206.0" promptText="Masukkan Pembayaran" text="0" />
+            <VBox alignment="CENTER" layoutX="513.0" prefHeight="120.0" prefWidth="138.0" spacing="10.0">
+               <children>
+                  <Button fx:id="PayButton" mnemonicParsing="false" onAction="#handlePayButtonClick" prefHeight="40.0" prefWidth="138.0" text="Pay">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="CheckOut" mnemonicParsing="false" onAction="#handleCheckOutButtonClick" prefHeight="43.0" prefWidth="138.0" text="Check Out" textFill="#083847">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </children>

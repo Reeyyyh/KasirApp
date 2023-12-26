@@ -3,6 +3,9 @@ import java.util.ResourceBundle;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,7 +49,6 @@ public class KasirController implements Initializable {
 
     @FXML
     private Label LabelKembalian;
-
     
     //Image
     @FXML
@@ -81,14 +83,18 @@ public class KasirController implements Initializable {
     @FXML
     private TextField TextFieldPembayaran;
 
-    //==============================================================================================
-
-
-
-    //Non FXML
+    //inisial Non FXML variabel
     //==============================================================================================
     private DropShadow redDropShadow = new DropShadow();
+    private LocalDateTime WaktuSekarang = LocalDateTime.now();
+    private DateTimeFormatter FormatterTime = DateTimeFormatter.ofPattern("HH:mm | dd MMMM yyyy");
 
+    private LocalDateTime TimeNow;
+    private String NamaItemYangDipesan;
+    private String TotalHargaItemYangDipesan;
+    private String JumlahItemYangDipesan;
+    private String PembayaranItemYangDipesan;
+    private String KembalianItemYangDipesan;
 
     //==============================================================================================
     //Burger ImageView click
@@ -113,7 +119,10 @@ public class KasirController implements Initializable {
             MenuYangDipesan.setText("Menu yang di pesan : "+BurgerLabel.getText());
             HargaMenu.setText("Harga : Rp "+BurgerPrice.getText());
             
+            
             disableOtherItems(BurgerImage);
+
+            setNamaMenuYangDipesan(BurgerLabel.getText());
 
             AutoCount(BurgerPrice);
         
@@ -144,6 +153,8 @@ public class KasirController implements Initializable {
             
             disableOtherItems(PizzaImage);
 
+            setNamaMenuYangDipesan(PizzaLabel.getText());
+
             AutoCount(PizzaPrice);
     }
 
@@ -171,6 +182,8 @@ public class KasirController implements Initializable {
             HargaMenu.setText("Harga : Rp "+RamenPrice.getText());
            
             disableOtherItems(RamenImage);
+
+            setNamaMenuYangDipesan(RamenLabel.getText());
 
             AutoCount(RamenPrice);
         
@@ -201,6 +214,8 @@ public class KasirController implements Initializable {
     
             disableOtherItems(DrinkImage);
 
+            setNamaMenuYangDipesan(DrinkLabel.getText());
+
             AutoCount(DrinkPrice);
         
     }
@@ -226,9 +241,7 @@ public class KasirController implements Initializable {
     void handleConfirmButtonClick(ActionEvent event){
         System.out.println("confirm");
         if (JumlahPesanan.get() == 0) {
-                Alert alert = new Alert(AlertType.WARNING);
-                alert.setHeaderText("order at least one item");
-                alert.show();
+            ShowErrorAlert("order at least one item");
         } else {
             PaneConfirm.setVisible(true);
             CheckOut.setDisable(true);
@@ -248,10 +261,13 @@ public class KasirController implements Initializable {
                 int Kembalian = Pembayaran - TotalHarga.get();
 
                 if (Kembalian <= -1){
-                    Alert alert = new Alert(AlertType.WARNING);
-                    alert.setHeaderText("your money is less");
-                    alert.show();
+                    ShowErrorAlert("your payment money is less");
                 } else {
+                    String PembayaranParsing = String.valueOf(Pembayaran);
+                    setPembayaranItemYandDipesan(PembayaranParsing);
+                    String KembalianParsing = String.valueOf(Kembalian);
+                    setKembalianItemYangDipesan(KembalianParsing);
+
                     LabelKembalian.setText("Kembalian : "+String.valueOf(Kembalian));
                     BurgerImage.setDisable(true);
                     PizzaImage.setDisable(true);
@@ -263,17 +279,12 @@ public class KasirController implements Initializable {
                     PayButton.setDisable(true);
                     CheckOut.setDisable(false);
 
-                    
                 }
             
         } catch (NumberFormatException nfe) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setHeaderText("Enter a number");
-            alert.show();
+            ShowErrorAlert("Enter a number");
         } catch (Exception e){
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setHeaderText("Sorry for the inconvenience");
-            alert.show();
+            ShowErrorAlert("Sorry for the inconvenience");
         }
         
     }
@@ -281,6 +292,17 @@ public class KasirController implements Initializable {
     @FXML
     void handleCheckOutButtonClick(ActionEvent event){
         System.out.println("check out get clicked");
+
+        setWaktuPesanan(WaktuSekarang);
+
+        System.out.println("Waktu : "+getWaktuSekarang().format(FormatterTime));
+        System.out.println("Menu : "+getNamaItemYangDipesan());
+        System.out.println("Jumlah Pesanan : "+getJumlahItemYangDipesan());
+        System.out.println("Total Harga : "+getTotalHargaItemYangDipesan());
+        System.out.println("Pembayaran : "+getPembayaranItemYandDipesan());
+        System.out.println("Kembalian : "+getKembalianItemYangDipesan());
+
+
         BurgerImage.setDisable(false);
         PizzaImage.setDisable(false);
         RamenImage.setDisable(false);
@@ -312,6 +334,14 @@ public class KasirController implements Initializable {
     //==============================================================================================
     //non fxml item
 
+    //show alert
+    private void ShowErrorAlert(String HeadAlert){
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setHeaderText(HeadAlert);
+        alert.show();
+    }
+
+    //Disable not selected item
     private void disableOtherItems(ImageView selectedItem) {
         // Menonaktifkan item-item lainnya
         if (selectedItem != BurgerImage) {
@@ -330,8 +360,8 @@ public class KasirController implements Initializable {
     }
 
     //AutoCount
-    AtomicInteger TotalHarga = new AtomicInteger(0);
     AtomicInteger JumlahPesanan = new AtomicInteger(0);
+    AtomicInteger TotalHarga = new AtomicInteger(0);
     private void AutoCount(Label Price) {
 
         TextFieldPembayaran.clear();
@@ -346,10 +376,64 @@ public class KasirController implements Initializable {
             int totalHarga = hargaPerItem * jumlahPesanan;
             LabelTotalHarga.setText("Total Harga : Rp " + totalHarga);
             PaneConfirm.setVisible(false);
-            TotalHarga.set(totalHarga);
+
             JumlahPesanan.set(jumlahPesanan);
+            TotalHarga.set(totalHarga);
+
+            String JumlahPesanParsing = String.valueOf(JumlahPesanan.get());
+            setJumlahItemYangDipesan(JumlahPesanParsing);
+            String TotalHargaParsing = String.valueOf(TotalHarga.get());
+            setTotalHargaItemYangDipesan(TotalHargaParsing);
         });
         
+    }
+    //setter
+    private void setWaktuPesanan(LocalDateTime Waktu){
+        this.TimeNow = Waktu;
+    }
+
+    private void setNamaMenuYangDipesan(String NamaPesanan){
+        this.NamaItemYangDipesan = NamaPesanan;
+    }
+
+    private void setJumlahItemYangDipesan(String JumlahPesanan){
+        this.JumlahItemYangDipesan = JumlahPesanan;
+    }
+
+    private void setTotalHargaItemYangDipesan(String HargaPesanan){
+        this.TotalHargaItemYangDipesan = HargaPesanan;
+    }
+
+    private void setPembayaranItemYandDipesan(String PembayaranPesanan){
+        this.PembayaranItemYangDipesan = PembayaranPesanan;
+    }
+
+    private void setKembalianItemYangDipesan(String KembalianPesanan){
+        this.KembalianItemYangDipesan = KembalianPesanan;
+    }
+
+    //getter
+    private LocalDateTime getWaktuSekarang(){
+        return TimeNow;
+    }
+    private String getNamaItemYangDipesan(){
+        return NamaItemYangDipesan;
+    }
+
+    private String getJumlahItemYangDipesan(){
+        return JumlahItemYangDipesan;
+    }
+
+    private String getTotalHargaItemYangDipesan(){
+        return TotalHargaItemYangDipesan;
+    }
+
+    private String getPembayaranItemYandDipesan(){
+        return PembayaranItemYangDipesan;
+    }
+
+    private String getKembalianItemYangDipesan(){
+        return KembalianItemYangDipesan;
     }
 
     //==============================================================================================

@@ -22,6 +22,7 @@ public class KasirApp extends Application {
 
         primaryStage.setTitle("Sistem Kasir");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

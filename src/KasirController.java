@@ -1,9 +1,16 @@
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
@@ -40,6 +47,8 @@ public class KasirController implements Initializable {
     @FXML
     private Label LabelTotalHarga;
 
+    @FXML
+    private Label LabelKembalian;
     
     //Image
     @FXML
@@ -53,7 +62,16 @@ public class KasirController implements Initializable {
     @FXML
     private Pane PaneShow;
 
+    @FXML
+    private Pane PaneConfirm;
+
     //Button
+    @FXML
+    private Button PayButton;
+
+    @FXML
+    private Button CheckOut;
+
     @FXML
     private Button HistoryPembelianButton;
 
@@ -65,52 +83,46 @@ public class KasirController implements Initializable {
     @FXML
     private TextField TextFieldPembayaran;
 
-    //==============================================================================================
-
-
-
-    //Non FXML
+    //inisial Non FXML variabel
     //==============================================================================================
     private DropShadow redDropShadow = new DropShadow();
+    private LocalDateTime WaktuSekarang = LocalDateTime.now();
+    private DateTimeFormatter FormatterTime = DateTimeFormatter.ofPattern("HH:mm | dd MMMM yyyy");
 
+    private LocalDateTime TimeNow;
+    private String NamaItemYangDipesan;
+    private String TotalHargaItemYangDipesan;
+    private String JumlahItemYangDipesan;
+    private String PembayaranItemYangDipesan;
+    private String KembalianItemYangDipesan;
 
     //==============================================================================================
     //Burger ImageView click
 
-    /**
-     * Burger entered
-     * @param event mouse entered
-     * @return color become red
-     */
     @FXML
     void OnMouseEnteredBurger(MouseEvent event) {
         BurgerImage.setEffect(redDropShadow);
     }
 
-    /**
-     * Burger Exit
-     * @param event mouse exit
-     * @return color back to original
-     */
     @FXML
     void OnMouseExitedBurger(MouseEvent event) {
         BurgerImage.setEffect(originalDropShadow);
     }
 
-    /**
-     * Burger cliked
-     * @param event mouse clicked, method begin
-     * @return Burger method
-     */
     @FXML
     void handleBurgerButtonClick(MouseEvent event) {
         System.out.println("burger click");
         
             PaneShow.setVisible(true);
+            PaneConfirm.setVisible(false);
+
             MenuYangDipesan.setText("Menu yang di pesan : "+BurgerLabel.getText());
             HargaMenu.setText("Harga : Rp "+BurgerPrice.getText());
             
+            
             disableOtherItems(BurgerImage);
+
+            setNamaMenuYangDipesan(BurgerLabel.getText());
 
             AutoCount(BurgerPrice);
         
@@ -119,40 +131,29 @@ public class KasirController implements Initializable {
     //==============================================================================================
     //Pizza ImageView click
 
-    /**
-     * Pizza entered
-     * @param event mouse entered
-     * @return color become red
-     */
     @FXML
     void OnMouseEnteredPizza(MouseEvent event) {
         PizzaImage.setEffect(redDropShadow);
     }
 
-    /**
-     * Pizza Exit
-     * @param event mouse exit
-     * @return color back to original
-     */
     @FXML
     void OnMouseExitedPizza(MouseEvent event) {
         PizzaImage.setEffect(originalDropShadow);
     }
     
-    /**
-     * Pizza cliked
-     * @param event mouse clicked, method begin
-     * @return Pizza method
-     */
     @FXML
     void handlePizzaButtonClick(MouseEvent event) {
         System.out.println("pizza cliked");
         
             PaneShow.setVisible(true);
+            PaneConfirm.setVisible(false);
+
             MenuYangDipesan.setText("Menu yang di pesan : "+PizzaLabel.getText());
             HargaMenu.setText("Harga : Rp "+PizzaPrice.getText());
             
             disableOtherItems(PizzaImage);
+
+            setNamaMenuYangDipesan(PizzaLabel.getText());
 
             AutoCount(PizzaPrice);
     }
@@ -160,41 +161,29 @@ public class KasirController implements Initializable {
     //==============================================================================================
     //Ramen ImageView click
 
-    /**
-     * Ramen entered
-     * @param event mouse entered
-     * @return color become red
-     */
     @FXML
     void OnMouseEnteredRamen(MouseEvent event) {
         RamenImage.setEffect(redDropShadow);
     }
 
-    /**
-     * Ramen Exit
-     * @param event mouse exit
-     * @return color back to original
-     */
     @FXML
     void OnMouseExitedRamen(MouseEvent event) {
         RamenImage.setEffect(originalDropShadow);
     }
 
-
-    /**
-     * Ramen cliked
-     * @param event mouse clicked, method begin
-     * @return Ramen method
-     */
     @FXML
     void handleRamenButtonClick(MouseEvent event) {
         System.out.println("ramen cliked");
         
             PaneShow.setVisible(true);
+            PaneConfirm.setVisible(false);
+
             MenuYangDipesan.setText("Menu yang di pesan : "+RamenLabel.getText());
             HargaMenu.setText("Harga : Rp "+RamenPrice.getText());
            
             disableOtherItems(RamenImage);
+
+            setNamaMenuYangDipesan(RamenLabel.getText());
 
             AutoCount(RamenPrice);
         
@@ -203,41 +192,29 @@ public class KasirController implements Initializable {
     //==============================================================================================
     //Drink ImageView click
 
-    /**
-     * Drink entered
-     * @param event mouse entered
-     * @return color become red
-     */
     @FXML
     void OnMouseEnteredDrink(MouseEvent event) {
         DrinkImage.setEffect(redDropShadow);
     }
 
-    /**
-     * Drink Exit
-     * @param event mouse exit
-     * @return color back to original
-     */
     @FXML
     void OnMouseExitedDrink(MouseEvent event) {
         DrinkImage.setEffect(originalDropShadow);
     }
 
-
-    /**
-     * Drink cliked
-     * @param event mouse clicked, method begin
-     * @return Drink method
-     */
     @FXML
     void handleDrinkButtonClick(MouseEvent event) {
         System.out.println("drink cliked");
         
             PaneShow.setVisible(true);
+            PaneConfirm.setVisible(false);
+
             MenuYangDipesan.setText("Menu yang di pesan : "+DrinkLabel.getText());
             HargaMenu.setText("Harga : Rp "+DrinkPrice.getText());
     
             disableOtherItems(DrinkImage);
+
+            setNamaMenuYangDipesan(DrinkLabel.getText());
 
             AutoCount(DrinkPrice);
         
@@ -246,11 +223,6 @@ public class KasirController implements Initializable {
     //==============================================================================================
     // pane item
 
-    /**
-     * Clear cliked
-     * @param event mouse clicked
-     * @return Pane invisible, and other item can be selected
-     */
     @FXML
     void handleClearButtonClick(ActionEvent event){
         System.out.println("clear");
@@ -260,18 +232,96 @@ public class KasirController implements Initializable {
         RamenImage.setDisable(false);
         DrinkImage.setDisable(false);
         HistoryPembelianButton.setDisable(false);
-        TextFieldPembayaran.clear();
 
+        PaneConfirm.setVisible(false);
+        TextFieldPembayaran.clear();
     }
 
-    /**
-     * confirm cliked
-     * @param event mouse clicked
-     * @return result
-     */
     @FXML
     void handleConfirmButtonClick(ActionEvent event){
         System.out.println("confirm");
+        if (JumlahPesanan.get() == 0) {
+            ShowErrorAlert("order at least one item");
+        } else {
+            PaneConfirm.setVisible(true);
+            CheckOut.setDisable(true);
+        }
+        
+    }
+
+    @FXML
+    void handlePayButtonClick(ActionEvent event){
+        System.out.println("Pay get clicked");
+
+        try {
+            String InputTextfield = TextFieldPembayaran.getText();
+
+                int Pembayaran = Integer.parseInt(InputTextfield);
+
+                int Kembalian = Pembayaran - TotalHarga.get();
+
+                if (Kembalian <= -1){
+                    ShowErrorAlert("your payment money is less");
+                } else {
+                    String PembayaranParsing = String.valueOf(Pembayaran);
+                    setPembayaranItemYandDipesan(PembayaranParsing);
+                    String KembalianParsing = String.valueOf(Kembalian);
+                    setKembalianItemYangDipesan(KembalianParsing);
+
+                    LabelKembalian.setText("Kembalian : "+String.valueOf(Kembalian));
+                    BurgerImage.setDisable(true);
+                    PizzaImage.setDisable(true);
+                    RamenImage.setDisable(true);
+                    DrinkImage.setDisable(true);
+                    PaneShow.setDisable(true);
+                    TextFieldPembayaran.setDisable(true);
+
+                    PayButton.setDisable(true);
+                    CheckOut.setDisable(false);
+
+                }
+            
+        } catch (NumberFormatException nfe) {
+            ShowErrorAlert("Enter a number");
+        } catch (Exception e){
+            ShowErrorAlert("Sorry for the inconvenience");
+        }
+        
+    }
+
+    @FXML
+    void handleCheckOutButtonClick(ActionEvent event){
+        System.out.println("check out get clicked");
+
+        setWaktuPesanan(WaktuSekarang);
+
+        System.out.println("Waktu : "+getWaktuSekarang().format(FormatterTime));
+        System.out.println("Menu : "+getNamaItemYangDipesan());
+        System.out.println("Jumlah Pesanan : "+getJumlahItemYangDipesan());
+        System.out.println("Total Harga : "+getTotalHargaItemYangDipesan());
+        System.out.println("Pembayaran : "+getPembayaranItemYandDipesan());
+        System.out.println("Kembalian : "+getKembalianItemYangDipesan());
+
+
+        BurgerImage.setDisable(false);
+        PizzaImage.setDisable(false);
+        RamenImage.setDisable(false);
+        DrinkImage.setDisable(false);
+        PaneShow.setDisable(false);
+
+        TextFieldPembayaran.setDisable(false);
+        HistoryPembelianButton.setDisable(false);
+
+        PayButton.setDisable(false);
+
+        PaneShow.setVisible(false);
+        PaneConfirm.setVisible(false);
+
+        //place to add to data
+
+
+        LabelKembalian.setText("Kembalian : ");
+
     }
 
     //==============================================================================================
@@ -284,10 +334,14 @@ public class KasirController implements Initializable {
     //==============================================================================================
     //non fxml item
 
-    /**
-     * to disable not selected item
-     * @param selectedItem a selected ImageView
-     */
+    //show alert
+    private void ShowErrorAlert(String HeadAlert){
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setHeaderText(HeadAlert);
+        alert.show();
+    }
+
+    //Disable not selected item
     private void disableOtherItems(ImageView selectedItem) {
         // Menonaktifkan item-item lainnya
         if (selectedItem != BurgerImage) {
@@ -306,7 +360,11 @@ public class KasirController implements Initializable {
     }
 
     //AutoCount
+    AtomicInteger JumlahPesanan = new AtomicInteger(0);
+    AtomicInteger TotalHarga = new AtomicInteger(0);
     private void AutoCount(Label Price) {
+
+        TextFieldPembayaran.clear();
 
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10);
         valueFactory.setValue(0);
@@ -317,11 +375,69 @@ public class KasirController implements Initializable {
             int jumlahPesanan = newValue;
             int totalHarga = hargaPerItem * jumlahPesanan;
             LabelTotalHarga.setText("Total Harga : Rp " + totalHarga);
+            PaneConfirm.setVisible(false);
+
+            JumlahPesanan.set(jumlahPesanan);
+            TotalHarga.set(totalHarga);
+
+            String JumlahPesanParsing = String.valueOf(JumlahPesanan.get());
+            setJumlahItemYangDipesan(JumlahPesanParsing);
+            String TotalHargaParsing = String.valueOf(TotalHarga.get());
+            setTotalHargaItemYangDipesan(TotalHargaParsing);
         });
+        
     }
-    
+    //setter
+    private void setWaktuPesanan(LocalDateTime Waktu){
+        this.TimeNow = Waktu;
+    }
+
+    private void setNamaMenuYangDipesan(String NamaPesanan){
+        this.NamaItemYangDipesan = NamaPesanan;
+    }
+
+    private void setJumlahItemYangDipesan(String JumlahPesanan){
+        this.JumlahItemYangDipesan = JumlahPesanan;
+    }
+
+    private void setTotalHargaItemYangDipesan(String HargaPesanan){
+        this.TotalHargaItemYangDipesan = HargaPesanan;
+    }
+
+    private void setPembayaranItemYandDipesan(String PembayaranPesanan){
+        this.PembayaranItemYangDipesan = PembayaranPesanan;
+    }
+
+    private void setKembalianItemYangDipesan(String KembalianPesanan){
+        this.KembalianItemYangDipesan = KembalianPesanan;
+    }
+
+    //getter
+    private LocalDateTime getWaktuSekarang(){
+        return TimeNow;
+    }
+    private String getNamaItemYangDipesan(){
+        return NamaItemYangDipesan;
+    }
+
+    private String getJumlahItemYangDipesan(){
+        return JumlahItemYangDipesan;
+    }
+
+    private String getTotalHargaItemYangDipesan(){
+        return TotalHargaItemYangDipesan;
+    }
+
+    private String getPembayaranItemYandDipesan(){
+        return PembayaranItemYangDipesan;
+    }
+
+    private String getKembalianItemYangDipesan(){
+        return KembalianItemYangDipesan;
+    }
 
     //==============================================================================================
+
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -338,3 +454,13 @@ public class KasirController implements Initializable {
     }
 
 }
+
+
+//Pattern InputPembayaran = Pattern.compile("^[0-9]+$");
+// if (InputPembayaran.matcher(InputTextfield).matches()){
+                
+            // } else {
+            //     Alert alert = new Alert(AlertType.WARNING);
+            //     alert.setHeaderText("please enter a number");
+            //     alert.show();
+            // }

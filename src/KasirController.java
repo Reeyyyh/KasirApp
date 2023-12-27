@@ -6,9 +6,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -17,9 +24,12 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 
 /**
  * @apiNote javafx version of JDK 21
@@ -87,9 +97,9 @@ public class KasirController implements Initializable {
     //==============================================================================================
     private DropShadow redDropShadow = new DropShadow();
     private LocalDateTime WaktuSekarang = LocalDateTime.now();
-    private DateTimeFormatter FormatterTime = DateTimeFormatter.ofPattern("HH:mm | dd MMMM yyyy");
+    private DateTimeFormatter FormatterTime = DateTimeFormatter.ofPattern("HH:mm - dd MMMM yyyy");
 
-    private LocalDateTime TimeNow;
+    private String TimeNow;
     private String NamaItemYangDipesan;
     private String TotalHargaItemYangDipesan;
     private String JumlahItemYangDipesan;
@@ -293,15 +303,23 @@ public class KasirController implements Initializable {
     void handleCheckOutButtonClick(ActionEvent event){
         System.out.println("check out get clicked");
 
-        setWaktuPesanan(WaktuSekarang);
+        setWaktuPesanan(WaktuSekarang.format(FormatterTime));
+        
+        String MyFile = "src\\Data.txt";
+        String waktu = getWaktuSekarang();
+        String menu = getNamaItemYangDipesan();
+        String jumlah = getJumlahItemYangDipesan();
+        String total = getTotalHargaItemYangDipesan();
+        String bayar = getPembayaranItemYandDipesan();
+        String kembali = getKembalianItemYangDipesan();
 
-        System.out.println("Waktu : "+getWaktuSekarang().format(FormatterTime));
-        System.out.println("Menu : "+getNamaItemYangDipesan());
-        System.out.println("Jumlah Pesanan : "+getJumlahItemYangDipesan());
-        System.out.println("Total Harga : "+getTotalHargaItemYangDipesan());
-        System.out.println("Pembayaran : "+getPembayaranItemYandDipesan());
-        System.out.println("Kembalian : "+getKembalianItemYangDipesan());
-
+        // add data to txt file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(MyFile, true))) {
+            writer.write(waktu + ", " + menu + ", " + jumlah + ", " + total + ", " + bayar + ", " + kembali);
+            writer.newLine(); 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         BurgerImage.setDisable(false);
         PizzaImage.setDisable(false);
@@ -317,9 +335,6 @@ public class KasirController implements Initializable {
         PaneShow.setVisible(false);
         PaneConfirm.setVisible(false);
 
-        //place to add to data
-
-
         LabelKembalian.setText("Kembalian : ");
 
     }
@@ -328,7 +343,28 @@ public class KasirController implements Initializable {
     //Hitory Pembelian Button action
     @FXML
     void handleHistoryPembelianButton(ActionEvent event){
-        System.out.println("history pembelian button clik");
+        try {
+        //load history.fxml
+        System.out.println("history pembelian button clicked");
+
+        Stage secondStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("History.fxml"));
+        Scene scene = new Scene(root);
+
+        Image icon = new Image("file:asset\\img\\IconHistory.png");
+        secondStage.getIcons().add(icon);
+
+        secondStage.setTitle("History Pesanan");
+        secondStage.setResizable(false);
+
+        secondStage.setScene(scene);
+        secondStage.show();
+
+        // Close the current stage
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
     }
 
     //==============================================================================================
@@ -362,6 +398,7 @@ public class KasirController implements Initializable {
     //AutoCount
     AtomicInteger JumlahPesanan = new AtomicInteger(0);
     AtomicInteger TotalHarga = new AtomicInteger(0);
+
     private void AutoCount(Label Price) {
 
         TextFieldPembayaran.clear();
@@ -387,8 +424,9 @@ public class KasirController implements Initializable {
         });
         
     }
+
     //setter
-    private void setWaktuPesanan(LocalDateTime Waktu){
+    private void setWaktuPesanan(String Waktu){
         this.TimeNow = Waktu;
     }
 
@@ -413,7 +451,7 @@ public class KasirController implements Initializable {
     }
 
     //getter
-    private LocalDateTime getWaktuSekarang(){
+    private String getWaktuSekarang(){
         return TimeNow;
     }
     private String getNamaItemYangDipesan(){

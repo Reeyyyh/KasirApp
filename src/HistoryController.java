@@ -26,6 +26,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+/**
+ * Controller untuk menangani tampilan dan logika dari histori pesanan.
+ *
+ * @apiNote Digunakan untuk menampilkan dan menghapus data histori pesanan.
+ * @version 1.0
+ */
 public class HistoryController implements Initializable {
 
     @FXML
@@ -98,7 +104,16 @@ public class HistoryController implements Initializable {
         }
     }
 
+    /**
+     * Kelas pembantu untuk membaca data dari file.
+     */
     public class DataReader {
+        /**
+         * Membaca data dari file teks.
+         *
+         * @param namaFile Nama file yang akan dibaca.
+         * @return List<String> berisi baris-baris data dari file.
+         */
         public static List<String> bacaData(String namaFile) {
             Path path = Paths.get(namaFile);
             try {

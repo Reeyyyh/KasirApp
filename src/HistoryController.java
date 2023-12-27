@@ -4,7 +4,8 @@ import java.util.ResourceBundle;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -107,7 +108,7 @@ public class HistoryController implements Initializable {
     /**
      * Kelas pembantu untuk membaca data dari file.
      */
-    public class DataReader {
+    private class DataReader {
         /**
          * Membaca data dari file teks.
          *
@@ -125,6 +126,21 @@ public class HistoryController implements Initializable {
         }
     }
 
+    /**
+     * Memperbarui Data.txt dengan data terbaru setelah penghapusan.
+     */
+    private void updateTxtFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src\\Data.txt"))) {
+            for (DataModel data : Data) {
+                String line = String.format("%s, %s, %s, %s, %s, %s", data.getWaktu(), data.getMenu(),data.getJumlah(), data.getTotalHarga(), data.getPembayaran(), data.getKembalian());
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     void DeleteButtonClick(ActionEvent event) {
         System.out.println("delete click");
@@ -133,6 +149,7 @@ public class HistoryController implements Initializable {
         if (select != null){
             Data.remove(select);
             HistoryTable.getSelectionModel().clearSelection();
+            updateTxtFile();
         } else {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setHeaderText("Pilih Tabel yang ingin di Hapus");
@@ -140,6 +157,11 @@ public class HistoryController implements Initializable {
         }
     }
 
+    /**
+     * Mengarahkan kembali ke antarmuka pengguna Sistem Kasir.
+     *
+     * @param event Aksi klik tombol kembali ke Kasir.
+     */
     @FXML
     void KasirButtonClick(ActionEvent event) {
         System.out.println("kasir clicked");
@@ -162,6 +184,9 @@ public class HistoryController implements Initializable {
         }
     }
 
+    /**
+     * Menginisialisasi tampilan tabel dan membaca data dari file .txt.
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
     // Mapping kolom ke properti DataModel

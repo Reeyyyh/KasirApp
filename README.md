@@ -7,7 +7,7 @@ Sistem Kasir JavaFX adalah aplikasi sederhana untuk manajemen pesanan dan histor
 - **Pemesanan Menu:** Pilih dan pesan berbagai menu seperti Burger, Pizza, Ramen, dan Minuman.
 - **Perhitungan Otomatis:** Otomatis menghitung total harga pesanan berdasarkan jumlah yang dipilih.
 - **Histori Pembelian:** Melihat histori pembelian dengan rincian waktu, menu, jumlah, total harga, pembayaran, dan kembalian.
-- **Penghapusan Data:** Hapus entri histori pembelian dengan mudah.
+- **Penghapusan Data:** Hapus entri histori pembelian dengan mudah. (masih memiliki bug)
 
 ## Teknologi
 

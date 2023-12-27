@@ -1,14 +1,39 @@
-## Getting Started
+# Sistem Kasir JavaFX
 
-## Folder Structure
-- `.vscode`: my settings
-- `asset`  : Image
-- `src`    : the folder to maintain sources
-- `lib`    : Empty folder
+Sistem Kasir JavaFX adalah aplikasi sederhana untuk manajemen pesanan dan histori pembelian. Aplikasi ini dikembangkan menggunakan JavaFX dan menyediakan antarmuka pengguna grafis (GUI) untuk pengguna.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+## Fitur
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+- **Pemesanan Menu:** Pilih dan pesan berbagai menu seperti Burger, Pizza, Ramen, dan Minuman.
+- **Perhitungan Otomatis:** Otomatis menghitung total harga pesanan berdasarkan jumlah yang dipilih.
+- **Histori Pembelian:** Melihat histori pembelian dengan rincian waktu, menu, jumlah, total harga, pembayaran, dan kembalian.
+- **Penghapusan Data:** Hapus entri histori pembelian dengan mudah.
 
-## About Project Kasir APP
-This a simple cassier proggram that implement GUI for it
+## Teknologi
+
+- JavaFX
+- SceneBuilder (untuk styling)
+
+## Penggunaan
+
+1. Pastikan Anda memiliki Java diinstal di sistem Anda.
+2. Jalankan file `KasirApp.java` untuk memulai aplikasi.
+3. Pilih menu, atur jumlah pesanan, lalu konfirmasi dan bayar.
+4. Lihat histori pembelian untuk melihat catatan pesanan sebelumnya.
+
+## Struktur Proyek
+
+- `KasirApp.java`: Kelas utama untuk menjalankan aplikasi.
+- `Kasir.fxml`: FXML file untuk antarmuka pengguna.
+- `KasirController.java` : Kontroller untuk menangani logika dan tampilan kasir.
+- `History.fxml`: FXML file untuk antarmuka History pembelian.
+- `HistoryController.java`: Kontroller untuk menangani logika dan tampilan histori pembelian.
+- `asset/img`: Direktori berisi gambar ikon dan gambar menu.
+
+## Kontribusi
+
+berkontribusi dengan membuat *pull request* untuk perbaikan bug atau peningkatan fitur.
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah [MIT License](LICENSE).

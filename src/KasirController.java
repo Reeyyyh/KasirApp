@@ -32,7 +32,11 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 
 /**
- * @apiNote javafx version of JDK 21
+ * Controller untuk antarmuka pengguna kasir.
+ *
+ * @author Rehan
+ * @version 1.0
+ * @since 28/12/2023
  */
 public class KasirController implements Initializable {
 
@@ -97,7 +101,7 @@ public class KasirController implements Initializable {
     //==============================================================================================
     private DropShadow redDropShadow = new DropShadow();
     private LocalDateTime WaktuSekarang = LocalDateTime.now();
-    private DateTimeFormatter FormatterTime = DateTimeFormatter.ofPattern("HH:mm - dd MMMM yyyy");
+    private DateTimeFormatter FormatterTime = DateTimeFormatter.ofPattern("HH:mm - dd MMMM yyyy"); // format output waktu : <20:00 - tanggal bulan tahun>
 
     private String TimeNow;
     private String NamaItemYangDipesan;
@@ -247,6 +251,11 @@ public class KasirController implements Initializable {
         TextFieldPembayaran.clear();
     }
 
+    /**
+     * Menghandle klik pada tombol confirm.
+     *
+     * @param event Event tombol yang terjadi.
+     */
     @FXML
     void handleConfirmButtonClick(ActionEvent event){
         System.out.println("confirm");
@@ -259,6 +268,11 @@ public class KasirController implements Initializable {
         
     }
 
+    /**
+     * Menghandle klik pada tombol pay.
+     *
+     * @param event Event tombol yang terjadi.
+     */
     @FXML
     void handlePayButtonClick(ActionEvent event){
         System.out.println("Pay get clicked");
@@ -299,6 +313,11 @@ public class KasirController implements Initializable {
         
     }
 
+    /**
+     * Menghandle klik pada tombol check out.
+     *
+     * @param event Event tombol yang terjadi.
+     */
     @FXML
     void handleCheckOutButtonClick(ActionEvent event){
         System.out.println("check out get clicked");
@@ -341,6 +360,12 @@ public class KasirController implements Initializable {
 
     //==============================================================================================
     //Hitory Pembelian Button action
+    /**
+     * Menghandle klik pada tombol history pembelian.
+     *
+     * @param event Event tombol yang terjadi.
+     * @throws IOException Jika terjadi kesalahan IO saat memuat FXML.
+     */
     @FXML
     void handleHistoryPembelianButton(ActionEvent event){
         try {
@@ -371,6 +396,11 @@ public class KasirController implements Initializable {
     //non fxml item
 
     //show alert
+    /**
+     * Menampilkan pesan alert kesalahan.
+     *
+     * @param HeadAlert Judul pesan alert.
+     */
     private void ShowErrorAlert(String HeadAlert){
         Alert alert = new Alert(AlertType.ERROR);
         alert.setHeaderText(HeadAlert);
@@ -378,8 +408,12 @@ public class KasirController implements Initializable {
     }
 
     //Disable not selected item
+    /**
+     * Menonaktifkan item-item yang tidak dipilih.
+     *
+     * @param selectedItem ImageView yang dipilih.
+     */
     private void disableOtherItems(ImageView selectedItem) {
-        // Menonaktifkan item-item lainnya
         if (selectedItem != BurgerImage) {
             BurgerImage.setDisable(true);
         }
@@ -399,6 +433,11 @@ public class KasirController implements Initializable {
     AtomicInteger JumlahPesanan = new AtomicInteger(0);
     AtomicInteger TotalHarga = new AtomicInteger(0);
 
+    /**
+     * Menghitung otomatis jumlah pesanan dan total harga.
+     *
+     * @param Price Harga per item.
+     */
     private void AutoCount(Label Price) {
 
         TextFieldPembayaran.clear();
@@ -476,7 +515,12 @@ public class KasirController implements Initializable {
 
     //==============================================================================================
 
-
+    /**
+     * Metode yang dipanggil saat inisialisasi controller.
+     *
+     * @param arg0 URL tidak digunakan.
+     * @param arg1 ResourceBundle tidak digunakan.
+     */
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         
@@ -492,13 +536,3 @@ public class KasirController implements Initializable {
     }
 
 }
-
-
-//Pattern InputPembayaran = Pattern.compile("^[0-9]+$");
-// if (InputPembayaran.matcher(InputTextfield).matches()){
-                
-            // } else {
-            //     Alert alert = new Alert(AlertType.WARNING);
-            //     alert.setHeaderText("please enter a number");
-            //     alert.show();
-            // }

@@ -17,6 +17,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -108,16 +110,24 @@ public class HistoryController implements Initializable {
         }
     }
 
-
-
     @FXML
     void DeleteButtonClick(ActionEvent event) {
         System.out.println("delete click");
 
+        DataModel select = HistoryTable.getSelectionModel().getSelectedItem();
+        if (select != null){
+            Data.remove(select);
+            HistoryTable.getSelectionModel().clearSelection();
+        } else {
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setHeaderText("Pilih Tabel yang ingin di Hapus");
+            alert.show();
+        }
     }
 
     @FXML
     void KasirButtonClick(ActionEvent event) {
+        System.out.println("kasir clicked");
         try {
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("Kasir.fxml"));

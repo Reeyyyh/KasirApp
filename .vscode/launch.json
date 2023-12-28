@@ -7,15 +7,6 @@
     "configurations": [
         {
             "type": "java",
-            "name": "DynamicTotalPriceExample",
-            "request": "launch",
-            "mainClass": "test.DynamicTotalPriceExample",
-            "projectName": "KasirApp_cfbff8e3",
-            "vmArgs": "--module-path \"C:/Program Files/Java/jdk-19/lib/javafx-sdk-21.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
-
-        },
-        {
-            "type": "java",
             "name": "KasirApp",
             "request": "launch",
             "mainClass": "KasirApp",

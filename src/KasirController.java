@@ -535,4 +535,16 @@ public class KasirController implements Initializable {
 
     }
 
+    public void setAutoCount(String string, int i) {
+    }
+
+    public String getLabelTotalHargaText() {
+        if (LabelTotalHarga != null) {
+            return LabelTotalHarga.getText();
+        } else {
+            return ""; // Mengembalikan string kosong jika LabelTotalHarga null
+        }
+    }
+    
+
 }

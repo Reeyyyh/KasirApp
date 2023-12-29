@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  *
  * @apiNote JavaFX version of JDK 21
  * @version 1.0
- * @author Rehan, Dimas
+ * @author Rehan
  */
 public class KasirApp extends Application {
     /**
